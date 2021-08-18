@@ -2,11 +2,11 @@
     include_once 'connectDB.php';
     include_once 'functions.php';
     
-    $url = $_POST['url'];
+    $url = urldecode($_REQUEST["url"]);
     $url = addhttp($url);
 
     if (!isValidURL($url)) {
-        header('location: index.php?error=invalid_url');
+        echo "Invalid url.";
         exit();
     }
 
@@ -20,5 +20,5 @@
 
     $stmt->execute();
 
-    echo "<br>http://localhost/mini-url/?url={$short}";
+    echo "http://localhost/mini-url/?url={$short}";
 ?>

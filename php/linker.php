@@ -12,5 +12,5 @@ if(!(isset($_GET['url']) && $_GET['url']!=""))
 $url=urldecode($_GET['url']);
 
 if ($result = shortUrlExists($conn, $url)) {
-    header("location: {$result['original_url']}");
+    echo $result['original_url'];
 }
