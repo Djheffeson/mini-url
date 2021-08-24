@@ -1,15 +1,24 @@
-if (getParameterByName("url") != null) {
-    var httpRequest = new XMLHttpRequest();
-    httpRequest.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            window.location.href = this.responseText;
-        }
+window.onload = getUrlLink();
+window.onload = getErrors();
+
+function getUrlLink() 
+{
+    if (getParameterByName("url") != null) {
+        window.location.href = `php/linker.php?url=${getParameterByName("url")}`;
     }
-    httpRequest.open('GET', `php/linker.php?url=${getParameterByName("url")}`);
-    httpRequest.send();
 }
 
-function getUrl() {
+function getErrors() 
+{
+    if (getParameterByName("error") != null) {
+        if (getParameterByName("error") == 'invalidUrl') {
+            window.alert("Invalid URL");
+        }
+    }
+}
+
+function getUrl() 
+{
     var urlText = window.document.getElementById("url-input");
     var divMsg = window.document.getElementById("msg");
     if (urlText.value == '') {
@@ -28,7 +37,8 @@ function getUrl() {
     httpRequest.send();
 }
 
-function getParameterByName(name, url = window.location.href) {
+function getParameterByName(name, url = window.location.href) 
+{
     name = name.replace(/[\[\]]/g, '\\$&');
     var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|$)'), results = regex.exec(url);
     if (!results) return null;
